@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic-Game</title>
+</head>
+
+<body>
+
+    <div>
+        <h1>The Psychic Game</h1>
+        
+        <h2>Wins: <span id="wins"><strong>0</strong></span></h2>
+        <h2>Looses: <span id="looses"><strong>0</strong></span></h2>
+        <h2>Guess Left: <span id="guessleft"><strong>0</strong></span></h2>
+        <h2>Your Guesses so far: <span id="yourguess"><strong>none</strong></span></h2>
+
+
+    </div>
+
+    <script>
+
+        var wins = 0;
+        var looses = 0;
+        var guessLeft = 9;
+        var guessesSoFar;
+        var toGuess;
+
+        function getLetter() {
+            var text = "";
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+            toGuess = text;
+            console.log("The letter to guess is: " + toGuess + ". (printed inside the function execution).");
+        }
+
+        var sendWins = document.getElementById("wins");
+        var sendLooses = document.getElementById("looses");
+        var sendGuessLeft = document.getElementById("guessleft");
+        var sendYourGuess = document.getElementById("yourguess");
+
+        // Next, we give JavaScript a function to execute when onkeyup event fires.
+        document.onkeyup = function (event) {
+            userText.textContent = event.key;
+        };
+
+
+
+        // This function is run whenever the user presses a key.
+        document.onkeyup = function (event) {
+
+            var userPress = event.key;
+            console.log(userPress);
+            sendYourGuess.textContent = userPress;
+
+            console.log("entro");
+            console.log(guessLeft);
+            if (guessLeft == 9) {
+                getLetter();
+                
+            }
+            if (userPress == toGuess) {
+                console.log("le atinaste");
+                guessLeft = 9;
+                wins++;
+                sendWins.textContent = wins;
+                console.log("wins: " + wins + ". Lost: " + looses);
+            }
+            if (userPress != toGuess) {
+                console.log("le fallaste");
+                guessLeft--;
+                sendGuessLeft.textContent = guessLeft;
+                
+                // document.write("No le atinaste");
+            }
+            if (guessLeft == 0) {
+                guessLeft = 9;
+                looses++;
+                sendLooses.textContent = looses;
+                console.log("wins: " + wins + ". Lost: " + looses);
+            }
+
+
+
+        };
+
+
+    </script>
+
+</body>
+
+</html>
